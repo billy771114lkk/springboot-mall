@@ -1,8 +1,8 @@
 package com.chiubilly.springbootmall.service.impl;
 
-import com.chiubilly.springbootmall.constant.ProductCategory;
 import com.chiubilly.springbootmall.dao.Product;
 import com.chiubilly.springbootmall.dao.ProductDao;
+import com.chiubilly.springbootmall.dto.ProductQueryParams;
 import com.chiubilly.springbootmall.dto.ProductRequest;
 import com.chiubilly.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<Product> getProducts(ProductCategory category,String search) {
-        return productDao.getProducts(category,search);
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+        return productDao.getProducts(productQueryParams);
     }
 
     @Override
