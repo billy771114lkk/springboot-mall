@@ -1,5 +1,6 @@
 package com.chiubilly.springbootmall.controller;
 
+import com.chiubilly.springbootmall.constant.ProductCategory;
 import com.chiubilly.springbootmall.dao.Product;
 import com.chiubilly.springbootmall.dto.ProductRequest;
 import com.chiubilly.springbootmall.service.ProductService;
@@ -19,8 +20,9 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-            List<Product> productList = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(@RequestParam(required = false) ProductCategory category
+                                                                                                    , @RequestParam(required = false)String search){
+            List<Product> productList = productService.getProducts(category,search);
 
             return ResponseEntity.status(HttpStatus.OK).body(productList);
     }

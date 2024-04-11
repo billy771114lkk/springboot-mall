@@ -1,5 +1,6 @@
 package com.chiubilly.springbootmall.dao.impl;
 
+import com.chiubilly.springbootmall.constant.ProductCategory;
 import com.chiubilly.springbootmall.dao.Product;
 import com.chiubilly.springbootmall.dao.ProductDao;
 import com.chiubilly.springbootmall.dto.ProductRequest;
@@ -22,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public List<Product> getProducts(){
+    public List<Product> getProducts(ProductCategory category,String search){
         String sql = " select product_id, " +
                 "product_name, " +
                 "category, " +
@@ -32,9 +33,21 @@ public class ProductDaoImpl implements ProductDao {
                 "description, " +
                 "created_date, " +
                 "last_modified_date " +
-                "from product";
+                "from product WHERE 1=1 ";
 
         Map<String,Object> map = new HashMap<>();
+
+        if(category!=null) {
+            sql += " and category=:category";
+            map.put("category",category.name());
+        }
+
+        if(search!=null) {
+            sql += " and product_name like :search ";
+            map.put("search", "%"+search+"%");
+        }
+
+
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql,map,new ProductRowMapper());
 
