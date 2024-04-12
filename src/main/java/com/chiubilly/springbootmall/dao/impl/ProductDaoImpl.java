@@ -30,15 +30,18 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String,Object> map = new HashMap<>();
         //查詢條件
-        if(productQueryParams.getCategory()!=null) {
-            sql += " and category=:category";
-            map.put("category",productQueryParams.getCategory().name());
-        }
+//        if(productQueryParams.getCategory()!=null) {
+//            sql += " and category=:category";
+//            map.put("category",productQueryParams.getCategory().name());
+//        }
+//
+//        if(productQueryParams.getSearch()!=null) {
+//            sql += " and product_name like :search ";
+//            map.put("search", "%"+productQueryParams.getSearch()+"%");
+//        }
 
-        if(productQueryParams.getSearch()!=null) {
-            sql += " and product_name like :search ";
-            map.put("search", "%"+productQueryParams.getSearch()+"%");
-        }
+        //取代上述寫法
+        sql = addFilteringSql(sql,map,productQueryParams);
 
         Integer total = namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);
 
@@ -62,15 +65,18 @@ public class ProductDaoImpl implements ProductDao {
 
 
         //查詢條件
-        if(productQueryParams.getCategory()!=null) {
-            sql += " and category=:category";
-            map.put("category",productQueryParams.getCategory().name());
-        }
+//        if(productQueryParams.getCategory()!=null) {
+//            sql += " and category=:category";
+//            map.put("category",productQueryParams.getCategory().name());
+//        }
+//
+//        if(productQueryParams.getSearch()!=null) {
+//            sql += " and product_name like :search ";
+//            map.put("search", "%"+productQueryParams.getSearch()+"%");
+//        }
 
-        if(productQueryParams.getSearch()!=null) {
-            sql += " and product_name like :search ";
-            map.put("search", "%"+productQueryParams.getSearch()+"%");
-        }
+        //取代上述寫法
+        sql = addFilteringSql(sql,map,productQueryParams);
 
         //排序
         //spring 的限制只能用字串拼接用orderBY 無法使用 :變數
@@ -176,6 +182,20 @@ public class ProductDaoImpl implements ProductDao {
         namedParameterJdbcTemplate.update(sql, map);
     }
 
+    //***********
+    private String addFilteringSql(String sql , Map map , ProductQueryParams productQueryParams){
+        if(productQueryParams.getCategory()!=null) {
+            sql += " and category=:category";
+            map.put("category",productQueryParams.getCategory().name());
+        }
 
+        if(productQueryParams.getSearch()!=null) {
+            sql += " and product_name like :search ";
+            map.put("search", "%"+productQueryParams.getSearch()+"%");
+        }
+
+        return sql;
+    }
+    //*********
     //---------------------------
 }
