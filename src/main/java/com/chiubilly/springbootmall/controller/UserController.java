@@ -1,5 +1,6 @@
 package com.chiubilly.springbootmall.controller;
 
+import com.chiubilly.springbootmall.dto.UserLoginRequest;
 import com.chiubilly.springbootmall.dto.UserRegisterRequest;
 import com.chiubilly.springbootmall.model.User;
 import com.chiubilly.springbootmall.service.UserService;
@@ -26,5 +27,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest){
+
+        User user = userService.login(userLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 
 }
