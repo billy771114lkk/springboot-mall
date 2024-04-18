@@ -1,7 +1,7 @@
 package com.chiubilly.springbootmall.rowmapper;
 
 import com.chiubilly.springbootmall.constant.ProductCategory;
-import com.chiubilly.springbootmall.dao.Product;
+import com.chiubilly.springbootmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

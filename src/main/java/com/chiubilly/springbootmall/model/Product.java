@@ -1,4 +1,4 @@
-package com.chiubilly.springbootmall.dao;
+package com.chiubilly.springbootmall.model;
 
 import com.chiubilly.springbootmall.constant.ProductCategory;
 

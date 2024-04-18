@@ -1,8 +1,8 @@
 package com.chiubilly.springbootmall.dao;
 
-import com.chiubilly.springbootmall.constant.ProductCategory;
 import com.chiubilly.springbootmall.dto.ProductQueryParams;
 import com.chiubilly.springbootmall.dto.ProductRequest;
+import com.chiubilly.springbootmall.model.Product;
 
 import java.util.List;
 
