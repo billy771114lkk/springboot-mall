@@ -5,6 +5,7 @@ import com.chiubilly.springbootmall.dao.ProductDao;
 import com.chiubilly.springbootmall.dao.UserDao;
 import com.chiubilly.springbootmall.dto.BuyItem;
 import com.chiubilly.springbootmall.dto.CreateOrderRequest;
+import com.chiubilly.springbootmall.dto.OrderQueryParams;
 import com.chiubilly.springbootmall.model.Order;
 import com.chiubilly.springbootmall.model.OrderItem;
 import com.chiubilly.springbootmall.model.Product;
@@ -34,6 +35,25 @@ public class OrderServiceImpl implements OrderService {
     private UserDao userDao;
 
     private final static Logger log= LoggerFactory.getLogger(OrderServiceImpl.class);
+
+
+    @Override
+    public Integer countOrder(OrderQueryParams orderQueryParams) {
+        return orderDao.countOrder(orderQueryParams);
+    }
+
+    @Override
+    public List<Order> getOrders(OrderQueryParams orderQueryParams) {
+        List<Order> orderList = orderDao.getOrders(orderQueryParams);
+
+        for(Order order: orderList){
+            List<OrderItem>  orderItemList = orderDao.getOrderItemsByOrderId(order.getOrderId());
+
+            order.setOrderItemList(orderItemList);
+        }
+
+        return orderList ;
+    }
 
     @Override
     public Order getOrderById(Integer orderId) {
