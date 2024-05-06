@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script>
+
+        function func(a) {
+            var formObj = document.getElementById('myFunction');
+
+            if (a=='save') {
+                formObj.method = 'post';
+                formObj.action = '/exchange/save';
+                formObj.submit;
+            } else if (a=='update') {
+                formObj.action = '/exchage/update';
+                formObj.submit;
+            } else if (a=='get') {
+                formObj.action = '/exchage/get';
+                formObj.submit;
+            } else if (a=='del') {
+                formObj.action = '/exchange/del';
+                formObj.submit;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>My ExChangeRate</h1>
+    DATE<p th:text="${exchangeRateRequest.Date}"></p>
+    USD/NTD<p th:text="${exchangeRateRequest.usdToNtd}"></p>
+    RMB/NTD<p th:text="${exchangeRateRequest.rmbToNtd}"></p>
+    USD/RMB<p th:text="${exchangeRateRequest.usdToRmb}"></p>
+    <form id="myFunction" name="myFunction">
+
+        <input type="hidden" name="date"              th:value="${exchangeRateRequest.Date}" >
+        <input type="hidden" name="usd_to_ntd"   th:value="${exchangeRateRequest.usdToNtd}">
+        <input type="hidden" name="rmb_to_ntd"  th:value="${exchangeRateRequest.rmbToNtd}" >
+        <input type="hidden" name="usd_to_rmb"  th:value="${exchangeRateRequest.usdToRmb}"  >
+
+        <button id="save"  onclick="func('save')">紀錄目前匯率</button>
+        <button id="update" onclick="func('update')">更新匯率紀錄</button>
+        <button id="get" onclick="func('get')">查詢目前匯率</button>
+        <button id="del" onclick="func('del')">刪除匯率紀錄</button>
+
+    </form>
+
+</body>
+</html>
