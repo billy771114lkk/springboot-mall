@@ -2,6 +2,7 @@ package com.chiubilly.springbootmall.controller;
 
 import com.chiubilly.springbootmall.dto.ExchangeRateRequest;
 import com.chiubilly.springbootmall.service.ExchangeRateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 @Controller
@@ -19,6 +19,8 @@ public class ExchangeRateController {
 
     private final RestTemplate restTemplate = new RestTemplate();
     //@Autowired
+
+    @Autowired
     private ExchangeRateService exchangeRateService;
 
     //@RequestMapping("/exchange")
@@ -51,40 +53,65 @@ public class ExchangeRateController {
     //存入DB該日匯率
     @PostMapping("/exchange/save")
     public String saveExchangeRate( @RequestParam("date") String date
-                                                                ,@RequestParam("usd_to_ntd") Double usdToNtd
-                                                                ,@RequestParam("rmb_to_ntd") Double rmbToNtd
-                                                                ,@RequestParam("usd_to_rmb") Double usdToRmb){
-//        exchangeRateService.saveExchangeRate();
+                                                                ,@RequestParam("usd_to_ntd") String usdToNtd
+                                                                ,@RequestParam("rmb_to_ntd") String rmbToNtd
+                                                                ,@RequestParam("usd_to_rmb") String usdToRmb){
 
-//        System.out.println(date);
-//        System.out.println(usdToNtd);
-//        System.out.println(rmbToNtd);
-//        System.out.println(usdToRmb);
-        
 
-        //return "saveExchange";
-        //return "redirect:/exchange";
+        ExchangeRateRequest exchangeRateRequest = new ExchangeRateRequest();
 
-        return "successPage";
+        exchangeRateRequest.setDate(date);
+        exchangeRateRequest.setUsdToNtd(usdToNtd);
+        exchangeRateRequest.setRmbToNtd(rmbToNtd);
+        exchangeRateRequest.setUsdToRmb(usdToRmb);
+
+       int myFlag = exchangeRateService.saveExchangeRate(exchangeRateRequest);
+        System.out.println(myFlag);
+       if(myFlag!=0)
+           return "successPage";
+       else
+           return "failPage";
     }
 
 
-    @PutMapping("/exchange/update")
-    public String updateExchangeRate(){
-//        exchangeRateService.updateExchangeRate();
-        return "updateExchange";
+    //@PutMapping("/exchange/update")
+    @PostMapping("/exchange/update")
+    public String updateExchangeRate(@RequestParam("date") String date
+            ,@RequestParam("usd_to_ntd") String usdToNtd
+            ,@RequestParam("rmb_to_ntd") String rmbToNtd
+            ,@RequestParam("usd_to_rmb") String usdToRmb){
+
+        ExchangeRateRequest exchangeRateRequest = new ExchangeRateRequest();
+
+        exchangeRateRequest.setDate(date);
+        exchangeRateRequest.setUsdToNtd(usdToNtd);
+        exchangeRateRequest.setRmbToNtd(rmbToNtd);
+        exchangeRateRequest.setUsdToRmb(usdToRmb);
+
+        int myFlag = exchangeRateService.updateExchangeRate(exchangeRateRequest);
+
+        if(myFlag!=0)
+            return "successPage";
+        else
+            return "failPage";
     }
 
-    @GetMapping("/exchage/get")
+    @GetMapping("/exchange/get")
     public  String getExchageRate(){
 //        exchangeRateService.getExchangeRate();
         return "getExchange";
     }
 
-    @DeleteMapping("/exchange/delete")
-    public String deleteExchangeRate(){
-//        exchangeRateService.deleteExchangeRate();
-        return "deleteExchange";
+//    @DeleteMapping("/exchange/del")
+   @GetMapping("/exchange/del")
+    public String deleteExchangeRate(@RequestParam("date") String date){
+
+        ExchangeRateRequest exchangeRateRequest = new ExchangeRateRequest();
+
+        exchangeRateRequest.setDate(date);
+
+       exchangeRateService.deleteExchangeRate(exchangeRateRequest);
+        return "successPage";
     }
 
 

@@ -12,7 +12,7 @@ public class ExchangeRateRowMapper implements RowMapper<ExchangeRate> {
         ExchangeRate exchangeRate = new ExchangeRate();
 
         exchangeRate.setId(resultSet.getInt("id"));
-        exchangeRate.setExchangeDate(resultSet.getDate("exchage_date"));
+        exchangeRate.setExchangeDate(resultSet.getDate("exchange_date"));
         exchangeRate.setUsdToNtd(resultSet.getDouble("usd_to_ntd"));
         exchangeRate.setRmbToNtd(resultSet.getDouble("rmb_to_ntd"));
         exchangeRate.setUsdToRmb(resultSet.getDouble("usd_to_rmb"));

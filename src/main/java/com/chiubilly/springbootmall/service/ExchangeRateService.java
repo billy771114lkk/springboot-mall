@@ -1,5 +1,6 @@
 package com.chiubilly.springbootmall.service;
 
+import com.chiubilly.springbootmall.dto.ExchangeRateRequest;
 import com.chiubilly.springbootmall.model.ExchangeRate;
 
 public interface ExchangeRateService {
@@ -7,10 +8,10 @@ public interface ExchangeRateService {
 
     ExchangeRate getExchangeRate();
 
-    void saveExchangeRate();
+    Integer saveExchangeRate(ExchangeRateRequest exchangeRateRequest);
 
-    void updateExchangeRate();
+    Integer updateExchangeRate(ExchangeRateRequest exchangeRateRequest);
 
-    void deleteExchangeRate();
+    Integer deleteExchangeRate(ExchangeRateRequest exchangeRateRequest);
 
 }

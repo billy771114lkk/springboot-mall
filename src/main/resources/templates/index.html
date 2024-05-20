@@ -15,12 +15,15 @@
                 formObj.action = '/exchange/save';
                 formObj.submit;
             } else if (a=='update') {
-                formObj.action = '/exchage/update';
+                formObj.method = 'post';
+                formObj.action = '/exchange/update';
                 formObj.submit;
             } else if (a=='get') {
-                formObj.action = '/exchage/get';
+                formObj.method = 'get';
+                formObj.action = '/exchange/get';
                 formObj.submit;
             } else if (a=='del') {
+                formObj.method = 'get';
                 formObj.action = '/exchange/del';
                 formObj.submit;
             }
