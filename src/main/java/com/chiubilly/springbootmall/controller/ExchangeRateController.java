@@ -24,7 +24,6 @@ public class ExchangeRateController {
     private ExchangeRateService exchangeRateService;
 
     //@RequestMapping("/exchange")
-
     @GetMapping("/exchange")
     public String getExchangeRate(Model model){
         //需要converter轉換的METHOD

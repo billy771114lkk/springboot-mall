@@ -50,7 +50,7 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
     @Override
     public ExchangeRate getNewOneExchangeRateByDate(ExchangeRateRequest exchangeRateRequest) {
 
-        String sql  = "SELECT id,exchange_date,usd_to_ntd,rmb_to_ntd,usd_to_ntd,created_date,last_modified_date " +
+        String sql  = "SELECT id,exchange_date,usd_to_ntd,rmb_to_ntd,usd_to_rmb,created_date,last_modified_date " +
                 " from exchangerate where 1=1 " +
                 " and  exchange_date=:exchangeDate ";
 
@@ -65,7 +65,8 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
 
         ExchangeRate exchangeRate;
         try {
-             exchangeRate = namedParameterJdbcTemplate.queryForObject(sql, map, ExchangeRate.class);
+             List<ExchangeRate> exchangeRateList = namedParameterJdbcTemplate.query(sql, map, new ExchangeRateRowMapper());
+            exchangeRate = exchangeRateList.get(0);
         }catch (Exception e){
             e.printStackTrace();
             exchangeRate=null;

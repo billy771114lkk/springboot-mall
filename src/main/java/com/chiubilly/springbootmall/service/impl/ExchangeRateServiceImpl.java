@@ -30,9 +30,9 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
             if(exchangeRate==null) {
                 exchangeRateDao.saveExchangeRate(exchangeRateRequest);
-                return 0;
+                return 1;
             } else{
-                return 1 ;
+                return 0 ;
             }
     }
 
