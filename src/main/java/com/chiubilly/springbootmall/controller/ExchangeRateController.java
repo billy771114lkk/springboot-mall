@@ -18,7 +18,6 @@ import java.util.Arrays;
 public class ExchangeRateController {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    //@Autowired
 
     @Autowired
     private ExchangeRateService exchangeRateService;
@@ -71,7 +70,6 @@ public class ExchangeRateController {
        else
            return "failPage";
     }
-
 
     //@PutMapping("/exchange/update")
     @PostMapping("/exchange/update")

@@ -46,13 +46,13 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
         return null;
     }
 
-
     @Override
     public ExchangeRate getNewOneExchangeRateByDate(ExchangeRateRequest exchangeRateRequest) {
 
         String sql  = "SELECT id,exchange_date,usd_to_ntd,rmb_to_ntd,usd_to_rmb,created_date,last_modified_date " +
                 " from exchangerate where 1=1 " +
                 " and  exchange_date=:exchangeDate ";
+
 
         System.out.println(sql);
         Map<String,Object> map = new HashMap<>();
@@ -68,10 +68,9 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
              List<ExchangeRate> exchangeRateList = namedParameterJdbcTemplate.query(sql, map, new ExchangeRateRowMapper());
             exchangeRate = exchangeRateList.get(0);
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             exchangeRate=null;
         }
-
 
         return exchangeRate;
     }
@@ -104,10 +103,10 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
     }
 
     @Override
-    public Integer updateExchangeRate(ExchangeRateRequest exchangeRateRequest) {
+    public Integer deleteExchangeRate(ExchangeRateRequest exchangeRateRequest) {
 
-        String sql = "DELETE FROM exchangerate " +
-                " WHERE exchange_date=:exchangeDate ";
+        String sql = " DELETE FROM exchangerate " +
+                " WHERE exchange_date = :exchangeDate ";
 
         Map<String,Object> map = new HashMap<>();
         try {
@@ -119,17 +118,18 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
 
-        return keyHolder.getKey().intValue();
+        //return keyHolder.getKey().intValue();
+        return 1;
     }
 
     @Override
-    public Integer deleteExchangeRate(ExchangeRateRequest exchangeRateRequest) {
+    public Integer updateExchangeRate(ExchangeRateRequest exchangeRateRequest) {
         String sql = "UPDATE exchangerate set  usd_to_ntd=:usdToNtd , rmb_to_ntd=:rmbToNtd , usd_to_rmb=:usdToRmb  last_modified_date=:lastModifiedDate " +
                 " WHERE exchange_date=:exchangeDate ";
 
         Map<String,Object> map = new HashMap<>();
         try {
-            map.put("exchangeDate", new SimpleDateFormat("yyyyMMdd").parse(exchangeRateRequest.getDate()));
+            map.put("exchangeDate",        new SimpleDateFormat("yyyyMMdd").parse(exchangeRateRequest.getDate())            );
         }catch (Exception e){
             e.printStackTrace();
         }

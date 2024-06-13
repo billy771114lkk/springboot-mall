@@ -14,10 +14,10 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Autowired
     private ExchangeRateDao exchangeRateDao;
 
-
     @Override
     public ExchangeRate getExchangeRate() {
 //        exchangeRateDao.getNewOneExchangeRate();
+
         return null;
     }
 
