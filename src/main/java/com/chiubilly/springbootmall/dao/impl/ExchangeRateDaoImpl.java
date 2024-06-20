@@ -53,7 +53,6 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
                 " from exchangerate where 1=1 " +
                 " and  exchange_date=:exchangeDate ";
 
-
         System.out.println(sql);
         Map<String,Object> map = new HashMap<>();
          try{
@@ -74,7 +73,6 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
 
         return exchangeRate;
     }
-
 
     @Override
     public Integer saveExchangeRate(ExchangeRateRequest exchangeRateRequest)  {
@@ -99,7 +97,6 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
 
         return keyHolder.getKey().intValue();
-
     }
 
     @Override
@@ -124,12 +121,16 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
 
     @Override
     public Integer updateExchangeRate(ExchangeRateRequest exchangeRateRequest) {
-        String sql = "UPDATE exchangerate set  usd_to_ntd=:usdToNtd , rmb_to_ntd=:rmbToNtd , usd_to_rmb=:usdToRmb  last_modified_date=:lastModifiedDate " +
-                " WHERE exchange_date=:exchangeDate ";
+        String sql = "UPDATE exchangerate set  usd_to_ntd=:usdToNtd , rmb_to_ntd=:rmbToNtd , usd_to_rmb=:usdToRmb,  last_modified_date=:lastModifiedDate " +
+                " WHERE exchange_date>=:exchangeDate ";
+
+        //System.out.println(exchangeRateRequest.getDate());
 
         Map<String,Object> map = new HashMap<>();
+
         try {
-            map.put("exchangeDate",        new SimpleDateFormat("yyyyMMdd").parse(exchangeRateRequest.getDate())            );
+            System.out.println(new SimpleDateFormat("yyyyMMdd").parse(exchangeRateRequest.getDate() ));
+            map.put("exchangeDate",           new SimpleDateFormat("yyyyMMdd").parse(exchangeRateRequest.getDate()              )        );
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -143,6 +144,7 @@ public class ExchangeRateDaoImpl implements ExchangeRateDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map),keyHolder);
 
-        return keyHolder.getKey().intValue();
+        //return keyHolder.getKey().intValue();
+        return 1;
     }
 }

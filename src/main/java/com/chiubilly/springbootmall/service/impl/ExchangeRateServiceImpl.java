@@ -36,7 +36,6 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
             }
     }
 
-
     @Transactional
     @Override
     public Integer updateExchangeRate(ExchangeRateRequest exchangeRateRequest) {

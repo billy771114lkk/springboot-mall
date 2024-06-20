@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class ExchangeRateRowMapper implements RowMapper<ExchangeRate> {
     @Override
     public ExchangeRate mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+
         ExchangeRate exchangeRate = new ExchangeRate();
 
         exchangeRate.setId(resultSet.getInt("id"));
@@ -18,7 +19,6 @@ public class ExchangeRateRowMapper implements RowMapper<ExchangeRate> {
         exchangeRate.setUsdToRmb(resultSet.getDouble("usd_to_rmb"));
         exchangeRate.setCreatedDate(resultSet.getTimestamp("created_date"));
         exchangeRate.setLastModifiedDate(resultSet.getTimestamp("last_modified_date"));
-
 
         return exchangeRate;
     }
